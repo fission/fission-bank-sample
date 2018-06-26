@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: b2b2b163-3d92-4bfb-a23e-50c36d84da73
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: transaction-deposit
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /transaction/deposit

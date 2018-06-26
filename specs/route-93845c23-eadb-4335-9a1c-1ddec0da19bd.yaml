@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 93845c23-eadb-4335-9a1c-1ddec0da19bd
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: options-handler
+    type: name
+  host: ""
+  method: OPTIONS
+  relativeurl: /transaction/withdraw

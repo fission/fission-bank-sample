@@ -1,0 +1,35 @@
+hash: 5850f68578589d277e5316679ea8f0f9fdd10bf19c35bc935035c005d8960589
+updated: 2018-07-27T07:53:07.419807+08:00
+imports:
+- name: github.com/cockroachdb/cockroach-go
+  version: 59c0560478b705bf9bd12f9252224a0fad7c87df
+  subpackages:
+  - crdb
+- name: github.com/jinzhu/gorm
+  version: 0fd395ab37aefd2d50854f0556a4311dccc6f45a
+  subpackages:
+  - dialects/postgres
+- name: github.com/jinzhu/inflection
+  version: 04140366298a54a039076d798123ffa108fff46c
+- name: github.com/lib/pq
+  version: 90697d60dd844d5ef6ff15135d0203f65d2f53b8
+  subpackages:
+  - hstore
+  - oid
+- name: github.com/pkg/errors
+  version: f15c970de5b76fac0b59abb32d62c17cc7bed265
+- name: github.com/satori/go.uuid
+  version: f58768cc1a7a7e77a3bd49e98cdd21419399b6a3
+testImports:
+- name: github.com/davecgh/go-spew
+  version: 346938d642f2ec3594ed81d874461961cd0faa76
+  subpackages:
+  - spew
+- name: github.com/pmezard/go-difflib
+  version: d8ed2627bdf02c080bf22230dbb337003b7aba2d
+  subpackages:
+  - difflib
+- name: github.com/stretchr/testify
+  version: f35b8ab0b5a2cef36673838d662e249dd9c94686
+  subpackages:
+  - assert

@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: d089b784-c35c-4b20-a30d-b708aa7f827c
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: account-create
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /accounts/

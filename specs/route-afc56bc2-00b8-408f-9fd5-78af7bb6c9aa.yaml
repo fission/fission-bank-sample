@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: afc56bc2-00b8-408f-9fd5-78af7bb6c9aa
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: bank-web
+    type: name
+  host: ""
+  method: GET
+  relativeurl: /bank/{html:[a-zA-Z0-9\.\/]+}

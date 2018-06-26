@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: d090606a-3b9d-4550-b46a-d65b7f437d65
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: transaction-withdraw
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /transaction/withdraw

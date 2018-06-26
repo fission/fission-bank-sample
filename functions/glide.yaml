@@ -1,0 +1,11 @@
+package: github.com/fission/sample-project-1/bank
+import:
+- package: github.com/cockroachdb/cockroach-go
+  subpackages:
+  - crdb
+- package: github.com/lib/pq
+testImport:
+- package: github.com/stretchr/testify
+  version: ^1.2.2
+  subpackages:
+  - assert

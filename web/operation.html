@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fission Bank Sample</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="./common.js"></script>
+    <style>
+        html, body {
+            margin:0; padding:0; height:100%;
+        }
+        #content {
+            width: 60%;
+            position: relative;
+            top: 5%;
+            margin: 0 auto;
+            padding: 20pt;
+            border: 1px solid rgba(0,0,0,.15);
+            border-radius: .25rem
+        }
+    </style>
+    <script type="text/javascript">
+        console.log(getAuthToken())
+        if(getAuthToken()==="") {
+            window.location.href = "./login.html";
+        }
+    </script>
+</head>
+<body>
+<div id="content" class="container">
+    <h2 id="message"></h2>
+    <script type="text/javascript">
+        var msg = "Welcome back "+getCookie("username").toUpperCase();
+        $('#message').html(msg);
+    </script>
+    <div class="card" id="balance">
+        <div class="card-body">
+            <h5 class="card-title">Get account balance</h5>
+            <div class="alert alert-success" role="alert" id="alert-success" style="display: none"></div>
+            <div class="alert alert-danger" role="alert" id="alert-danger" style="display: none"></div>
+            <button type="button" class="btn btn-primary form-submit">Get</button>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $("#balance .form-submit").click(function(){
+                        $('#balance .alert').html('').hide();
+                        $.ajax({
+                            origin: "*",
+                            type: 'GET',
+                            beforeSend: function(request) {
+                                request.setRequestHeader("Authentication", getAuthToken());
+                            },
+                            url: '/accounts', // RESTful API function path
+                            crossDomain: true,
+                            error: function (xhr) {
+                                $('#balance #alert-danger').html('('+xhr.status+') '+xhr.responseText).show();
+                                return false;
+                            },
+                            success: function (response) {
+                                var resp = JSON.parse(response)
+                                $('#balance #alert-success').html('Current balance: ' + resp.balance).show();
+                                // var resp = JSON.parse(response)
+                                // document.cookie = "username="+resp.username;
+                                // document.cookie = "token="+resp.token;
+                                // window.location.href = "/login.html";
+                                return true;
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <br>
+    <div class="card" id="transaction">
+        <div class="card-body">
+            <h5 class="card-title">Get transaction records</h5>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Transaction Type
+                </button>
+                <div id="transaction-but" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <button type="button" class="dropdown-item" value="">All</button>
+                    <button type="button" class="dropdown-item" value="deposit">Deposit</button>
+                    <button type="button" class="dropdown-item" value="withdraw">Withdraw</button>
+                    <button type="button" class="dropdown-item" value="transfer">Transfer</button>
+                </div>
+            </div>
+            <div class="alert alert-danger" role="alert" id="alert-danger" style="display: none"></div>
+            <br>
+            <ul class="list-group"></ul>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $("#transaction #transaction-but button").click(function(){
+                        $.ajax({
+                            origin: "*",
+                            type: 'GET',
+                            beforeSend: function(request) {
+                                request.setRequestHeader("Authentication", getAuthToken());
+                            },
+                            url: '/transaction?type='+$(this).val(), // RESTful API function path
+                            crossDomain: true,
+                            error: function (xhr) {
+                                $('#transaction #alert-danger').html('('+xhr.status+') '+xhr.responseText).show();
+                                return false;
+                            },
+                            success: function (response) {
+                                $('#transaction ul').html('');
+
+                                $(response).each(function(index, item) {
+                                    var li = document.createElement('li');
+                                    li.setAttribute("class", "list-group-item");
+                                    $('#transaction ul').append(
+                                        $(li).text(JSON.stringify(item))
+                                    );
+                                });
+
+                                $('#transaction #alert-success').html(JSON.stringify(response, null, '')).show();
+                                console.log(response)
+                                // var resp = JSON.parse(response)
+                                // document.cookie = "username="+resp.username;
+                                // document.cookie = "token="+resp.token;
+                                // window.location.href = "/login.html";
+                                return true;
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <br>
+    <div class="card" id="deposit">
+        <div class="card-body">
+            <h5 class="card-title">Deposit</h5>
+            <div class="alert alert-success" role="alert" id="alert-success" style="display: none"></div>
+            <div class="alert alert-danger" role="alert" id="alert-danger" style="display: none"></div>
+            <form class="form">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" name="amount" id="amount" class="form-control" aria-label="Amount of money">
+                </div>
+                <button type="button" class="btn btn-primary form-submit">Submit</button>
+            </form>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $("#deposit .form .form-submit").click(function(){
+                        $('#deposit .alert').html('').hide();
+                        var data = getFormData($('#deposit .form'));
+                        $.ajax({
+                            origin: "*",
+                            type: 'POST',
+                            beforeSend: function(request) {
+                                request.setRequestHeader("Authentication", getAuthToken());
+                            },
+                            url: '/transaction/deposit', // RESTful API function path
+                            crossDomain: true,
+                            data: JSON.stringify(data),
+                            contentType: "application/json",
+                            error: function (xhr) {
+                                $('#deposit #alert-danger').html('('+xhr.status+') '+xhr.responseText).show();
+                                return false;
+                            },
+                            success: function (response) {
+                                $('#deposit #alert-success').html(response).show();
+                                // var resp = JSON.parse(response)
+                                // document.cookie = "username="+resp.username;
+                                // document.cookie = "token="+resp.token;
+                                // window.location.href = "/login.html";
+                                return true;
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <br>
+    <div class="card" id="withdraw">
+        <div class="card-body">
+            <h5 class="card-title">Withdraw</h5>
+            <div class="alert alert-success" role="alert" id="alert-success" style="display: none"></div>
+            <div class="alert alert-danger" role="alert" id="alert-danger" style="display: none"></div>
+            <form class="form">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" name="amount" id="amount" class="form-control" aria-label="Amount of money">
+                </div>
+                <button type="button" class="btn btn-primary form-submit">Submit</button>
+            </form>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $("#withdraw .form .form-submit").click(function(){
+                        $('#withdraw .alert').html('').hide();
+                        var data = getFormData($('#withdraw .form'));
+                        $.ajax({
+                            origin: "*",
+                            type: 'POST',
+                            beforeSend: function(request) {
+                                request.setRequestHeader("Authentication", getAuthToken());
+                            },
+                            url: '/transaction/withdraw', // RESTful API function path
+                            crossDomain: true,
+                            data: JSON.stringify(data),
+                            contentType: "application/json",
+                            error: function (xhr) {
+                                $('#withdraw #alert-danger').html('('+xhr.status+') '+xhr.responseText).show();
+                                return false;
+                            },
+                            success: function (response) {
+                                $('#withdraw #alert-success').html(response).show();
+                                // var resp = JSON.parse(response)
+                                // document.cookie = "username="+resp.username;
+                                // document.cookie = "token="+resp.token;
+                                // window.location.href = "/login.html";
+                                return true;
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <br>
+    <div class="card" id="transfer">
+        <div class="card-body">
+            <h5 class="card-title">Transfer</h5>
+            <div class="alert alert-success" role="alert" id="alert-success" style="display: none"></div>
+            <div class="alert alert-danger" role="alert" id="alert-danger" style="display: none"></div>
+            <form class="form">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Transfer to</span>
+                    </div>
+                    <input type="text" name="to" id="to" class="form-control" aria-label="Target account">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" name="amount" id="amount" class="form-control" aria-label="Amount of money">
+                </div>
+                <button type="button" class="btn btn-primary form-submit">Submit</button>
+            </form>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $("#transfer .form .form-submit").click(function(){
+                        $('#transfer .alert').html('').hide();
+                        var data = getFormData($('#transfer .form'));
+                        console.log(getAuthToken())
+                        console.log(data)
+                        $.ajax({
+                            origin: "*",
+                            type: 'POST',
+                            beforeSend: function(request) {
+                                request.setRequestHeader("Authentication", getAuthToken());
+                            },
+                            url: '/transaction/transfer', // RESTful API function path
+                            crossDomain: true,
+                            data: JSON.stringify(data),
+                            contentType: "application/json",
+                            error: function (xhr) {
+                                $('#transfer #alert-danger').html('('+xhr.status+') '+xhr.responseText).show();
+                                return false;
+                            },
+                            success: function (response) {
+                                $('#transfer #alert-success').html(response).show();
+                                // var resp = JSON.parse(response)
+                                // document.cookie = "username="+resp.username;
+                                // document.cookie = "token="+resp.token;
+                                // window.location.href = "./login.html";
+                                return true;
+                            }
+                        });
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <br>
+    <button type="button" id="logout-button" class="btn btn-danger">Logout</button>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#logout-button").click(function(){
+                document.cookie = "username=";
+                document.cookie = "token=";
+                window.location.href = "./login.html";
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
