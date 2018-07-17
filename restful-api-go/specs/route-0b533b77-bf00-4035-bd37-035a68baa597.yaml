@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 0b533b77-bf00-4035-bd37-035a68baa597
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: restapi-post
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /guestbook/messages
