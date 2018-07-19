@@ -73,8 +73,19 @@ You should see a list posts are returned.
 ```json
 [
     {
-        "id": 366456868654284801,
-        "message": "hello world!"
+        "id": 366739357484417025,
+        "message": "hello world!",
+        "timestamp": 1531990369
+    },
+    {
+        "id": 366739413774237697,
+        "message": "hello world!",
+        "timestamp": 1531990387
+    },
+    {
+        "id": 366739416644550657,
+        "message": "hello world!",
+        "timestamp": 1531990399
     }
 ]
 ```
@@ -84,6 +95,13 @@ Now, let's try to get a single post with post `id`.
 ```bash
 $ curl -v -X GET http://$FISSION_ROUTER/guestbook/messages/366456868654284801
 ```
+
+Or, you can try to get the messages in a specific time range with `start` and `end`.
+
+```bash
+$ curl -X GET 'http://$FISSION_ROUTER/guestbook/messages/?start=1531990369&end=1531990387'
+```
+
 
 3. Update post
 

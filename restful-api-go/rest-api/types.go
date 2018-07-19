@@ -10,6 +10,7 @@ type (
 		UpdatedAt time.Time  `json:"-"`
 		DeletedAt *time.Time `json:"-";sql:"index"`
 
-		Message string `json:"message"`
+		Message   string `json:"message"`
+		Timestamp int64  `json:"timestamp"`
 	}
 )
