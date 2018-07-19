@@ -7,9 +7,9 @@ metadata:
 spec:
   InvokeStrategy:
     ExecutionStrategy:
-      ExecutorType: poolmgr
-      MaxScale: 1
-      MinScale: 0
+      ExecutorType: newdeploy
+      MaxScale: 3
+      MinScale: 1
       TargetCPUPercent: 80
     StrategyType: execution
   configmaps: null
