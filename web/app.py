@@ -18,5 +18,6 @@ def get_file(filename):  # pragma: no cover
         return str(exc)
 
 def main():
-    print(request.headers)
+    # print(request)
+    # print(request.headers)
     return get_file(request.headers['X-Fission-Params-Html'])
