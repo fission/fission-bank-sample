@@ -1,6 +1,6 @@
 # Fission Bank Sample
 
-This bank example let users create their own bank account, deposit, withdraw and transfer money between accounts and check account balances. In this example you will see:
+This bank example let users create their own bank account, deposit, withdraw, transfer money between accounts and check account balances. In this example you will see:
 
 1. how a HTTP trigger works with a function
 2. how a function works with third-party component (database).
