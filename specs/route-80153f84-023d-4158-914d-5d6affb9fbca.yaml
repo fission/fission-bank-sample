@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 80153f84-023d-4158-914d-5d6affb9fbca
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: account-get
+    type: name
+  host: ""
+  method: GET
+  relativeurl: /accounts/

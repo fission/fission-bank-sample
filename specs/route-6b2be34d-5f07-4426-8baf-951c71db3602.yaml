@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 6b2be34d-5f07-4426-8baf-951c71db3602
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: options-handler
+    type: name
+  host: ""
+  method: OPTIONS
+  relativeurl: /transaction/transfer

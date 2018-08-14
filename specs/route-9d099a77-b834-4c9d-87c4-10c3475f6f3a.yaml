@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 9d099a77-b834-4c9d-87c4-10c3475f6f3a
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: account-login
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /sessions

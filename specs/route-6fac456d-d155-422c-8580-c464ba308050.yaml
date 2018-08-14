@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 6fac456d-d155-422c-8580-c464ba308050
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: options-handler
+    type: name
+  host: ""
+  method: OPTIONS
+  relativeurl: /accounts/

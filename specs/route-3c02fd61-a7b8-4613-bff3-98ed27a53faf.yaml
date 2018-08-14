@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: 3c02fd61-a7b8-4613-bff3-98ed27a53faf
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: transaction-transfer
+    type: name
+  host: ""
+  method: POST
+  relativeurl: /transaction/transfer

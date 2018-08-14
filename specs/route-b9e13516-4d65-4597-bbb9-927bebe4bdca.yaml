@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: b9e13516-4d65-4597-bbb9-927bebe4bdca
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: transaction-get
+    type: name
+  host: ""
+  method: GET
+  relativeurl: /transaction/

@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: ba9c8cdb-ad31-4eec-9ae9-00001fdd85e6
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: options-handler
+    type: name
+  host: ""
+  method: OPTIONS
+  relativeurl: /transaction/deposit

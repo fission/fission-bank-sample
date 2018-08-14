@@ -1,0 +1,26 @@
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: transaction-get
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 1
+      MinScale: 1
+      TargetCPUPercent: 80
+    StrategyType: execution
+  configmaps: null
+  environment:
+    name: go
+    namespace: default
+  package:
+    functionName: TransactionGetHandler
+    packageref:
+      name: bank-go-pkg
+      namespace: default
+      resourceversion: "27455"
+  resources: {}
+  secrets: null
