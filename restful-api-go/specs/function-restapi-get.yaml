@@ -1,0 +1,26 @@
+apiVersion: fission.io/v1
+kind: Function
+metadata:
+  creationTimestamp: null
+  name: restapi-get
+  namespace: default
+spec:
+  InvokeStrategy:
+    ExecutionStrategy:
+      ExecutorType: newdeploy
+      MaxScale: 3
+      MinScale: 1
+      TargetCPUPercent: 80
+    StrategyType: execution
+  configmaps: null
+  environment:
+    name: go
+    namespace: default
+  package:
+    functionName: MessageGetHandler
+    packageref:
+      name: restapi-go-pkg
+      namespace: default
+      resourceversion: "133729"
+  resources: {}
+  secrets: null

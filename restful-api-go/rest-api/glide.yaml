@@ -1,0 +1,8 @@
+package: github.com/fission/sample-project-1/restful-api-go
+import:
+- package: github.com/jinzhu/gorm
+  version: ^1.9.1
+  subpackages:
+  - dialects/postgres
+- package: github.com/pkg/errors
+  version: ^0.8.0

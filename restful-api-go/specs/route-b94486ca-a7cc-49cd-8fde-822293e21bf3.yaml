@@ -1,0 +1,14 @@
+apiVersion: fission.io/v1
+kind: HTTPTrigger
+metadata:
+  creationTimestamp: null
+  name: b94486ca-a7cc-49cd-8fde-822293e21bf3
+  namespace: default
+spec:
+  createingress: false
+  functionref:
+    name: restapi-delete
+    type: name
+  host: ""
+  method: DELETE
+  relativeurl: /guestbook/messages/{id:[0-9]+}

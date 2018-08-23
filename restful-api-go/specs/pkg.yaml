@@ -1,0 +1,21 @@
+apiVersion: fission.io/v1
+kind: Package
+metadata:
+  name: restapi-go-pkg
+  namespace: default
+spec:
+  source:
+    url: archive://restapi-go-zip
+  buildcmd: "build"
+  environment:
+    name: go
+    namespace: default
+status:
+  buildstatus: pending
+
+---
+kind: ArchiveUploadSpec
+name: restapi-go-zip
+include:
+  - "rest-api/*.go"
+  - "rest-api/vendor"
